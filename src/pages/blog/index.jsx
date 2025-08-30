@@ -1,0 +1,260 @@
+import React, { useState } from 'react';
+        import { Puck } from '@measured/puck';
+        import Header from '../../components/ui/Header';
+        import Footer from '../homepage/components/Footer';
+        import Icon from '../../components/AppIcon';
+
+        const BlogPage = () => {
+          const [selectedPost, setSelectedPost] = useState(null);
+          const [showEditor, setShowEditor] = useState(false);
+
+          // Puck editor configuration for blog content
+          const config = {
+            components: {
+              ArticleHeader: {
+                fields: {
+                  title: { type: "text" },
+                  subtitle: { type: "textarea" },
+                  author: { type: "text" },
+                  date: { type: "text" },
+                  readTime: { type: "text" },
+                },
+                render: ({ title, subtitle, author, date, readTime }) => (
+                  <header className="max-w-4xl mx-auto px-6 py-12 text-center">
+                    <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 leading-tight">
+                      {title}
+                    </h1>
+                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                      {subtitle}
+                    </p>
+                    <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
+                      <span>{author}</span>
+                      <span>•</span>
+                      <span>{date}</span>
+                      <span>•</span>
+                      <span>{readTime} min read</span>
+                    </div>
+                  </header>
+                ),
+              },
+              TextContent: {
+                fields: {
+                  content: { type: "textarea" },
+                },
+                render: ({ content }) => (
+                  <div className="max-w-3xl mx-auto px-6 py-6">
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      {content}
+                    </p>
+                  </div>
+                ),
+              },
+              ImageBlock: {
+                fields: {
+                  src: { type: "text" },
+                  alt: { type: "text" },
+                  caption: { type: "text" },
+                },
+                render: ({ src, alt, caption }) => (
+                  <figure className="max-w-5xl mx-auto px-6 py-8">
+                    <div className="bg-gray-100 rounded-lg aspect-video flex items-center justify-center">
+                      <Icon name="Image" size={64} className="text-gray-400" />
+                    </div>
+                    {caption && (
+                      <figcaption className="text-sm text-gray-500 mt-4 text-center">
+                        {caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ),
+              },
+            },
+          };
+
+          const initialData = {
+            content: [
+              {
+                type: "ArticleHeader",
+                props: {
+                  id: "header-1",
+                  title: "The Future of Artificial Intelligence Research",
+                  subtitle: "Exploring the next frontiers in machine learning and AI development",
+                  author: "Research Team",
+                  date: "December 15, 2024",
+                  readTime: "8",
+                },
+              },
+              {
+                type: "TextContent",
+                props: {
+                  id: "content-1",
+                  content: "Artificial intelligence continues to evolve at an unprecedented pace, with breakthrough discoveries reshaping our understanding of what's possible. In this comprehensive overview, we explore the latest developments and future directions in AI research.",
+                },
+              },
+              {
+                type: "ImageBlock",
+                props: {
+                  id: "image-1",
+                  src: "/api/placeholder/800/400",
+                  alt: "AI Research Visualization",
+                  caption: "Visual representation of neural network architectures",
+                },
+              },
+            ],
+            root: { props: { title: "Research Blog Post" } },
+          };
+
+          const blogPosts = [
+            {
+              id: 1,
+              title: "Breakthrough in Quantum Machine Learning",
+              excerpt: "Researchers demonstrate quantum advantage in machine learning tasks, opening new possibilities for computational efficiency.",
+              author: "Dr. Sarah Chen",
+              date: "2024-12-10",
+              readTime: "6 min",
+              category: "Quantum Computing",
+              featured: true
+            },
+            {
+              id: 2,
+              title: "Large Language Models: Progress and Challenges",
+              excerpt: "A comprehensive analysis of recent advances in large language models and the challenges that lie ahead.",
+              author: "Dr. Marcus Johnson", 
+              date: "2024-12-08",
+              readTime: "12 min",
+              category: "Natural Language Processing"
+            },
+            {
+              id: 3,
+              title: "Computer Vision in Healthcare: Real-World Applications",
+              excerpt: "Exploring how computer vision technologies are transforming medical diagnosis and patient care.",
+              author: "Dr. Emily Rodriguez",
+              date: "2024-12-05",
+              readTime: "9 min",
+              category: "Computer Vision"
+            }
+          ];
+
+          return (
+            <div className="min-h-screen bg-white">
+              <Header />
+              
+              <main className="pt-16">
+                {/* Blog Header */}
+                <div className="bg-gray-50 py-16">
+                  <div className="max-w-6xl mx-auto px-4 text-center">
+                    <h1 className="text-4xl font-light text-gray-900 mb-4">
+                      Research Blog
+                    </h1>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                      Insights, discoveries, and perspectives from our research teams on the latest developments in technology and science.
+                    </p>
+                    
+                    <div className="flex justify-center">
+                      <button 
+                        onClick={() => setShowEditor(!showEditor)}
+                        className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                      >
+                        <Icon name="Edit3" size={20} className="mr-2" />
+                        {showEditor ? 'Hide Visual Editor' : 'Open Visual Editor'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Puck Visual Editor */}
+                {showEditor && (
+                  <div className="border-b border-gray-200 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 py-8">
+                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                        <Puck 
+                          config={config} 
+                          data={initialData}
+                          onPublish={(data) => {
+                            console.log('Published blog post:', data);
+                            setShowEditor(false);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Blog Posts Grid */}
+                <div className="max-w-6xl mx-auto px-4 py-16">
+                  <div className="grid gap-12">
+                    {blogPosts?.map((post, index) => (
+                      <article 
+                        key={post?.id}
+                        className={`group cursor-pointer ${
+                          post?.featured ? 'border-l-4 border-l-blue-600 pl-8' : ''
+                        }`}
+                        onClick={() => setSelectedPost(post)}
+                      >
+                        <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
+                          
+                          {/* Post Content */}
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-4">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                {post?.category}
+                              </span>
+                              {post?.featured && (
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                  <Icon name="Star" size={12} className="mr-1" />
+                                  Featured
+                                </span>
+                              )}
+                            </div>
+
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                              {post?.title}
+                            </h2>
+                            
+                            <p className="text-gray-600 leading-relaxed mb-4 text-lg">
+                              {post?.excerpt}
+                            </p>
+
+                            <div className="flex items-center text-sm text-gray-500 space-x-4">
+                              <span className="flex items-center">
+                                <Icon name="User" size={14} className="mr-1" />
+                                {post?.author}
+                              </span>
+                              <span className="flex items-center">
+                                <Icon name="Calendar" size={14} className="mr-1" />
+                                {new Date(post?.date).toLocaleDateString()}
+                              </span>
+                              <span className="flex items-center">
+                                <Icon name="Clock" size={14} className="mr-1" />
+                                {post?.readTime}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Thumbnail */}
+                          <div className="mt-6 lg:mt-0 lg:min-w-[300px]">
+                            <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+                              <Icon name="FileText" size={48} className="text-gray-400" />
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+
+                  {/* Load More */}
+                  <div className="text-center mt-16">
+                    <button className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                      Load More Posts
+                      <Icon name="ChevronDown" size={20} className="ml-2" />
+                    </button>
+                  </div>
+                </div>
+              </main>
+              
+              <Footer />
+            </div>
+          );
+        };
+
+        export default BlogPage;

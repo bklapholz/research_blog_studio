@@ -2,9 +2,6 @@
 
 A modern React-based project utilizing the latest frontend technologies and tools for building responsive web applications.
 
-
-
-
 ## 🚀 Features
 
 - **React 18** - React version with improved rendering and concurrent features
@@ -101,3 +98,10 @@ Build the application for production:
 npm run build
 ```
 
+## 🙏 Acknowledgments
+
+- Built with [Rocket.new](https://rocket.new)
+- Powered by React and Vite
+- Styled with Tailwind CSS
+
+Built with ❤️ on Rocket.new

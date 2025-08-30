@@ -1,246 +1,147 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
 
 const PublicationShowcase = () => {
-  const [activePublication, setActivePublication] = useState(0);
-
   const publications = [
     {
       id: 1,
-      title: "Climate Change Impact on Marine Ecosystems",
-      author: "Dr. Sarah Chen",
-      institution: "Stanford University",
-      category: "Environmental Science",
-      readTime: "12 min read",
-      engagement: "2.4K views",
-      image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=600&h=400&fit=crop",
-      preview: `Marine ecosystems are experiencing unprecedented changes due to rising ocean temperatures and acidification.\n\nOur comprehensive study across 15 research stations reveals critical patterns that demand immediate attention from the global scientific community.`,
-      tags: ["Climate Science", "Marine Biology", "Data Analysis"],
-      metrics: {
-        citations: 47,
-        shares: 156,
-        discussions: 23
-      }
+      title: "Attention Is All You Need",
+      authors: "Vaswani, A., et al.",
+      venue: "NeurIPS 2017",
+      description: "Introducing the Transformer architecture that revolutionized natural language processing and became the foundation for modern large language models.",
+      category: "Machine Learning",
+      date: "2017-12-04",
+      citations: "84,567",
+      tags: ["Transformers", "NLP", "Deep Learning"],
+      featured: true
     },
     {
       id: 2,
-      title: "Quantum Computing Applications in Drug Discovery",
-      author: "Prof. Michael Rodriguez",
-      institution: "MIT",
-      category: "Computer Science",
-      readTime: "18 min read",
-      engagement: "3.1K views",
-      image: "https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?w=600&h=400&fit=crop",
-      preview: `Quantum computing represents a paradigm shift in pharmaceutical research, offering unprecedented computational power for molecular simulation.\n\nThis research demonstrates practical applications that could accelerate drug discovery by decades.`,
-      tags: ["Quantum Computing", "Pharmaceuticals", "Machine Learning"],
-      metrics: {
-        citations: 89,
-        shares: 234,
-        discussions: 41
-      }
+      title: "BERT: Pre-training of Deep Bidirectional Transformers",
+      authors: "Devlin, J., et al.", 
+      venue: "NAACL 2019",
+      description: "A breakthrough in language understanding that achieved state-of-the-art results on multiple NLP tasks through bidirectional training.",
+      category: "Natural Language Processing",
+      date: "2019-05-24",
+      citations: "67,234",
+      tags: ["BERT", "Language Models", "Pre-training"]
     },
     {
       id: 3,
-      title: "Social Media\'s Impact on Democratic Processes",
-      author: "Dr. Elena Vasquez",
-      institution: "Harvard University",
-      category: "Political Science",
-      readTime: "15 min read",
-      engagement: "4.2K views",
-      image: "https://images.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_1280.jpg?w=600&h=400&fit=crop",
-      preview: `Digital platforms have fundamentally altered how citizens engage with democratic institutions and political discourse.\n\nOur longitudinal study across 12 countries reveals both opportunities and threats to democratic participation.`,
-      tags: ["Political Science", "Social Media", "Democracy"],
-      metrics: {
-        citations: 156,
-        shares: 892,
-        discussions: 78
-      }
+      title: "Quantum Supremacy Using a Programmable Superconducting Processor",
+      authors: "Arute, F., et al.",
+      venue: "Nature 2019",
+      description: "Demonstrating quantum computational advantage with a 53-qubit quantum processor performing a specific computational task.",
+      category: "Quantum Computing",
+      date: "2019-10-23",
+      citations: "4,832",
+      tags: ["Quantum Computing", "Supremacy", "Hardware"]
     }
   ];
 
   return (
-    <section className="py-20 bg-surface">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <div className="inline-flex items-center space-x-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-inter font-medium">
-            <Icon name="BookOpen" size={16} />
-            <span>Featured Research</span>
-          </div>
-          <h2 className="text-fluid-3xl font-inter font-bold text-primary">
-            Exceptional Research Publications
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-light text-gray-900 mb-4">
+            Latest Research Publications
           </h2>
-          <p className="text-fluid-lg text-muted-foreground font-source-serif max-w-3xl mx-auto">
-            Discover how researchers are transforming complex academic work into engaging, 
-            interactive publications that reach broader audiences while maintaining scholarly rigor.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Discover our most impactful research contributions across artificial intelligence, 
+            quantum computing, and emerging technologies.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="space-y-8">
           {publications?.map((publication, index) => (
-            <div
+            <article 
               key={publication?.id}
-              className={`group cursor-pointer transition-all duration-500 ${
-                activePublication === index 
-                  ? 'transform scale-105 z-10' 
-                  : 'hover:transform hover:scale-102'
+              className={`bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-all duration-300 ${
+                publication?.featured ? 'border-l-4 border-l-blue-600' : ''
               }`}
-              onClick={() => setActivePublication(index)}
             >
-              <div className="bg-card rounded-2xl shadow-academic border border-border overflow-hidden hover:shadow-academic-lg transition-all duration-300">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={publication?.image}
-                    alt={publication?.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-accent text-white px-3 py-1 rounded-full text-xs font-inter font-medium">
+              <div className="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
+                
+                {/* Publication Info */}
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                       {publication?.category}
                     </span>
-                  </div>
-                  <div className="absolute bottom-4 right-4 flex items-center space-x-2">
-                    <div className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center space-x-1">
-                      <Icon name="Eye" size={12} className="text-muted-foreground" />
-                      <span className="text-xs font-inter text-foreground">{publication?.engagement}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 space-y-4">
-                  <div className="space-y-2">
-                    <h3 className="font-inter font-semibold text-lg text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
-                      {publication?.title}
-                    </h3>
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                      <span className="font-inter font-medium">{publication?.author}</span>
-                      <span>•</span>
-                      <span>{publication?.institution}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-sm text-muted-foreground font-source-serif leading-relaxed line-clamp-3">
-                    {publication?.preview?.split('\n')?.[0]}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {publication?.tags?.slice(0, 2)?.map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-muted text-muted-foreground px-2 py-1 rounded-md text-xs font-inter"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {publication?.tags?.length > 2 && (
-                      <span className="text-xs text-muted-foreground font-inter">
-                        +{publication?.tags?.length - 2} more
+                    {publication?.featured && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                        <Icon name="Star" size={12} className="mr-1" />
+                        Featured
                       </span>
                     )}
                   </div>
 
-                  {/* Metrics */}
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                      <div className="flex items-center space-x-1">
-                        <Icon name="Quote" size={12} />
-                        <span>{publication?.metrics?.citations}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Icon name="Share2" size={12} />
-                        <span>{publication?.metrics?.shares}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Icon name="MessageCircle" size={12} />
-                        <span>{publication?.metrics?.discussions}</span>
-                      </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 hover:text-blue-600 transition-colors cursor-pointer">
+                    {publication?.title}
+                  </h3>
+                  
+                  <div className="flex items-center text-sm text-gray-600 mb-3 space-x-4">
+                    <span className="flex items-center">
+                      <Icon name="Users" size={14} className="mr-1" />
+                      {publication?.authors}
+                    </span>
+                    <span className="flex items-center">
+                      <Icon name="MapPin" size={14} className="mr-1" />
+                      {publication?.venue}
+                    </span>
+                    <span className="flex items-center">
+                      <Icon name="Calendar" size={14} className="mr-1" />
+                      {new Date(publication?.date).toLocaleDateString()}
+                    </span>
+                  </div>
+
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    {publication?.description}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap gap-2">
+                      {publication?.tags?.map((tag, tagIndex) => (
+                        <span 
+                          key={tagIndex}
+                          className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-700"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
-                    <div className="text-xs text-muted-foreground font-inter">
-                      {publication?.readTime}
+                    
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Icon name="TrendingUp" size={14} className="mr-1" />
+                      <span>{publication?.citations} citations</span>
                     </div>
                   </div>
                 </div>
+
+                {/* Action Buttons */}
+                <div className="mt-6 lg:mt-0 flex flex-col space-y-3 lg:min-w-[200px]">
+                  <button className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                    <Icon name="FileText" size={16} className="mr-2" />
+                    Read Paper
+                  </button>
+                  <button className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                    <Icon name="Code" size={16} className="mr-2" />
+                    View Code
+                  </button>
+                  <button className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                    <Icon name="Share" size={16} className="mr-2" />
+                    Cite
+                  </button>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Interactive Preview */}
-        {activePublication !== null && (
-          <div className="mt-12 bg-muted/30 rounded-2xl p-8 border border-border">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-start space-x-6">
-                <div className="flex-1 space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <Icon name="FileText" size={20} className="text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-inter font-semibold text-xl text-foreground">
-                        {publications?.[activePublication]?.title}
-                      </h4>
-                      <p className="text-muted-foreground font-inter">
-                        {publications?.[activePublication]?.author} • {publications?.[activePublication]?.institution}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="prose prose-sm max-w-none">
-                    <p className="text-muted-foreground font-source-serif leading-relaxed whitespace-pre-line">
-                      {publications?.[activePublication]?.preview}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <button className="flex items-center space-x-2 text-accent hover:text-accent/80 transition-colors">
-                      <Icon name="ExternalLink" size={16} />
-                      <span className="font-inter font-medium text-sm">Read Full Publication</span>
-                    </button>
-                    <button className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
-                      <Icon name="Bookmark" size={16} />
-                      <span className="font-inter font-medium text-sm">Save</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="hidden lg:block w-64">
-                  <div className="bg-surface rounded-lg p-4 border border-border space-y-3">
-                    <h5 className="font-inter font-medium text-sm text-foreground">Publication Metrics</h5>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Citations</span>
-                        <span className="font-inter font-medium text-foreground">
-                          {publications?.[activePublication]?.metrics?.citations}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Shares</span>
-                        <span className="font-inter font-medium text-foreground">
-                          {publications?.[activePublication]?.metrics?.shares}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Discussions</span>
-                        <span className="font-inter font-medium text-foreground">
-                          {publications?.[activePublication]?.metrics?.discussions}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         <div className="text-center mt-12">
-          <button className="inline-flex items-center space-x-2 text-accent hover:text-accent/80 transition-colors font-inter font-medium">
-            <span>Explore All Publications</span>
-            <Icon name="ArrowRight" size={16} />
+          <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+            <Icon name="ChevronRight" size={20} className="ml-2" />
+            View All Publications
           </button>
         </div>
       </div>

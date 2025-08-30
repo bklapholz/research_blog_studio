@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
-import Image from '../../../components/AppImage';
+import { Puck } from '@measured/puck';
 
 const HeroSection = () => {
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [showEditor, setShowEditor] = useState(false);
 
   const headlines = [
-    "Transform Research into Engaging Stories",
-    "Where Academic Rigor Meets Creative Expression", 
-    "Democratize Research Communication"
+    "AI Research and Innovation",
+    "Advancing Computer Science", 
+    "Building the Future of Technology"
   ];
 
   useEffect(() => {
@@ -25,180 +26,162 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [headlines?.length]);
 
+  // Puck editor configuration
+  const config = {
+    components: {
+      HeadingBlock: {
+        fields: {
+          children: {
+            type: "text",
+          },
+        },
+        render: ({ children }) => {
+          return <h2 className="text-2xl font-bold mb-4 text-gray-900">{children}</h2>;
+        },
+      },
+      ParagraphBlock: {
+        fields: {
+          children: {
+            type: "textarea",
+          },
+        },
+        render: ({ children }) => {
+          return <p className="text-gray-700 leading-relaxed mb-4">{children}</p>;
+        },
+      },
+    },
+  };
+
+  const initialData = {
+    content: [
+      {
+        type: "HeadingBlock",
+        props: {
+          id: "heading-1",
+          children: "Research Insights",
+        },
+      },
+      {
+        type: "ParagraphBlock",
+        props: {
+          id: "paragraph-1", 
+          children: "Explore the latest breakthroughs in artificial intelligence and machine learning.",
+        },
+      },
+    ],
+    root: { props: { title: "Research Blog" } },
+  };
+
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-background via-muted/30 to-background overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 paper-texture opacity-40"></div>
-      {/* Academic Grid Overlay */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="h-full w-full" style={{
-          backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}></div>
-      </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
+    <section className="bg-white">
+      {/* Google Research Blog Style Header */}
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center space-x-2 bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium mb-6">
+            <Icon name="Lightbulb" size={14} />
+            <span>Google Research Blog</span>
+          </div>
           
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <div className="inline-flex items-center space-x-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-inter font-medium">
-                <Icon name="Sparkles" size={16} />
-                <span>Powered by Visual Research Editor</span>
-              </div>
-              
-              <div className="space-y-4">
-                <h1 className="text-fluid-hero font-inter font-bold text-primary leading-tight">
-                  <span 
-                    className={`block transition-all duration-500 ${
-                      isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
-                    }`}
-                  >
-                    {headlines?.[currentHeadline]}
-                  </span>
-                </h1>
-                
-                <p className="text-fluid-lg text-muted-foreground font-source-serif leading-relaxed max-w-xl">
-                  Research Blog Studio empowers academics and researchers to transform complex ideas into visually compelling, interactive publications that engage broader audiences while maintaining scholarly integrity.
-                </p>
-              </div>
-            </div>
+          <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 leading-tight">
+            <span 
+              className={`block transition-all duration-500 ${
+                isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
+              }`}
+            >
+              {headlines?.[currentHeadline]}
+            </span>
+          </h1>
+          
+          <p className="text-xl text-gray-600 font-normal leading-relaxed max-w-3xl mx-auto mb-8">
+            Sharing our latest research, insights, and innovations that are shaping the future of technology and advancing human knowledge.
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="default" 
-                size="lg" 
-                className="cta-hover"
-                iconName="Edit3"
-                iconPosition="left"
-              >
-                Start Creating
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                iconName="BookOpen"
-                iconPosition="left"
-              >
-                Explore Publications
-              </Button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button 
+              variant="default" 
+              size="lg" 
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"
+              iconName="Search"
+              iconPosition="left"
+            >
+              Explore Research
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-md font-medium"
+              iconName="Edit3"
+              iconPosition="left"
+              onClick={() => setShowEditor(!showEditor)}
+            >
+              {showEditor ? 'Hide Editor' : 'Visual Editor'}
+            </Button>
+          </div>
+        </div>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border">
-              <div className="text-center">
-                <div className="text-2xl font-inter font-bold text-primary">12,000+</div>
-                <div className="text-sm text-muted-foreground">Publications Created</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-inter font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">Research Institutions</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-inter font-bold text-primary">3.5x</div>
-                <div className="text-sm text-muted-foreground">Avg. Engagement Increase</div>
+        {/* Featured Research Cards - Google Research Style */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+          <div className="group cursor-pointer">
+            <div className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <Icon name="Brain" size={48} className="text-white" />
               </div>
             </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              Machine Learning Advances
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Exploring new architectures and training methodologies that push the boundaries of what's possible with AI.
+            </p>
           </div>
 
-          {/* Right Content - Editor Preview */}
-          <div className="relative">
-            <div className="relative bg-surface rounded-2xl shadow-academic-lg border border-border overflow-hidden">
-              {/* Editor Header */}
-              <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30">
-                <div className="flex items-center space-x-3">
-                  <div className="flex space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-error"></div>
-                    <div className="w-3 h-3 rounded-full bg-warning"></div>
-                    <div className="w-3 h-3 rounded-full bg-success"></div>
-                  </div>
-                  <span className="text-sm font-inter font-medium text-foreground">Research Editor</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Icon name="Users" size={16} className="text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">3 collaborators</span>
-                </div>
-              </div>
-
-              {/* Editor Content */}
-              <div className="p-6 space-y-6 bg-surface">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <Icon name="FileText" size={16} className="text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-inter font-semibold text-foreground">Neural Network Optimization</h3>
-                      <p className="text-sm text-muted-foreground">Research Publication • Draft</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="h-3 bg-muted rounded w-full"></div>
-                    <div className="h-3 bg-muted rounded w-4/5"></div>
-                    <div className="h-3 bg-muted rounded w-3/4"></div>
-                  </div>
-                </div>
-
-                {/* Interactive Chart Preview */}
-                <div className="bg-muted/50 rounded-lg p-4 border border-border">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-inter font-medium text-foreground">Performance Metrics</span>
-                    <Icon name="BarChart3" size={16} className="text-accent" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-accent"></div>
-                      <div className="h-2 bg-accent/30 rounded flex-1"></div>
-                      <span className="text-xs text-muted-foreground">92%</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                      <div className="h-2 bg-secondary/30 rounded flex-1 w-3/4"></div>
-                      <span className="text-xs text-muted-foreground">78%</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 rounded-full bg-success"></div>
-                      <div className="h-2 bg-success/30 rounded flex-1 w-2/3"></div>
-                      <span className="text-xs text-muted-foreground">65%</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Component Toolbar */}
-                <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg border border-border">
-                  <div className="flex items-center space-x-2">
-                    <button className="p-2 hover:bg-surface rounded-md transition-colors">
-                      <Icon name="Type" size={16} className="text-muted-foreground" />
-                    </button>
-                    <button className="p-2 hover:bg-surface rounded-md transition-colors">
-                      <Icon name="Image" size={16} className="text-muted-foreground" />
-                    </button>
-                    <button className="p-2 hover:bg-surface rounded-md transition-colors">
-                      <Icon name="BarChart3" size={16} className="text-muted-foreground" />
-                    </button>
-                    <button className="p-2 hover:bg-surface rounded-md transition-colors">
-                      <Icon name="Quote" size={16} className="text-muted-foreground" />
-                    </button>
-                  </div>
-                  <Button variant="ghost" size="sm">
-                    <Icon name="Plus" size={14} />
-                  </Button>
-                </div>
+          <div className="group cursor-pointer">
+            <div className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+                <Icon name="Globe" size={48} className="text-white" />
               </div>
             </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              Quantum Computing
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Breakthrough research in quantum algorithms and their applications to real-world problems.
+            </p>
+          </div>
 
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 bg-success text-white p-3 rounded-full shadow-academic-md">
-              <Icon name="Check" size={20} />
+          <div className="group cursor-pointer">
+            <div className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                <Icon name="Zap" size={48} className="text-white" />
+              </div>
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-accent text-white p-3 rounded-full shadow-academic-md">
-              <Icon name="Zap" size={20} />
-            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+              Computer Vision
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Revolutionary approaches to image recognition, object detection, and visual understanding.
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Puck Visual Editor Integration */}
+      {showEditor && (
+        <div className="border-t border-gray-200 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 py-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Visual Content Editor</h2>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <Puck 
+                config={config} 
+                data={initialData}
+                onPublish={(data) => {
+                  console.log('Published:', data);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
