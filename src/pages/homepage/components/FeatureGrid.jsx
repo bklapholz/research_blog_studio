@@ -49,6 +49,24 @@ const FeatureGrid = () => {
     }
   ];
 
+  const colorVariants = {
+    accent: {
+      bg: 'bg-accent',
+      text: 'text-accent',
+      hover: 'hover:text-accent/80',
+    },
+    primary: {
+      bg: 'bg-primary',
+      text: 'text-primary',
+      hover: 'hover:text-primary/80',
+    },
+    success: {
+      bg: 'bg-success',
+      text: 'text-success',
+      hover: 'hover:text-success/80',
+    },
+  };
+
   return (
     <section className="py-20 bg-surface">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -90,7 +108,7 @@ const FeatureGrid = () => {
                   
                   {/* Feature Icon */}
                   <div className="absolute top-6 left-6">
-                    <div className={`w-12 h-12 rounded-xl bg-${feature?.color} flex items-center justify-center shadow-academic`}>
+                    <div className={`w-12 h-12 rounded-xl ${colorVariants[feature?.color]?.bg} flex items-center justify-center shadow-academic`}>
                       <Icon name={feature?.icon} size={20} className="text-white" />
                     </div>
                   </div>
@@ -126,7 +144,7 @@ const FeatureGrid = () => {
                     <ul className="space-y-1">
                       {feature?.details?.map((detail, detailIndex) => (
                         <li key={detailIndex} className="flex items-start space-x-2 text-sm text-muted-foreground">
-                          <Icon name="Check" size={14} className={`text-${feature?.color} mt-0.5 flex-shrink-0`} />
+                          <Icon name="Check" size={14} className={`${colorVariants[feature?.color]?.text} mt-0.5 flex-shrink-0`} />
                           <span className="font-source-serif">{detail}</span>
                         </li>
                       ))}
@@ -135,7 +153,7 @@ const FeatureGrid = () => {
 
                   {/* CTA */}
                   <div className="pt-4 border-t border-border">
-                    <button className={`inline-flex items-center space-x-2 text-${feature?.color} hover:text-${feature?.color}/80 transition-colors font-inter font-medium text-sm`}>
+                    <button className={`inline-flex items-center space-x-2 ${colorVariants[feature?.color]?.text} ${colorVariants[feature?.color]?.hover} transition-colors font-inter font-medium text-sm`}>
                       <span>Learn More</span>
                       <Icon name="ArrowRight" size={14} />
                     </button>

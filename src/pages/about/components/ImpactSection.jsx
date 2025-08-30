@@ -33,6 +33,29 @@ const ImpactSection = () => {
     }
   ];
 
+  const metricColors = {
+    success: {
+      from: 'from-success',
+      to: 'to-success/80',
+      text: 'text-success',
+    },
+    'brand-primary': {
+      from: 'from-brand-primary',
+      to: 'to-brand-primary/80',
+      text: 'text-brand-primary',
+    },
+    accent: {
+      from: 'from-accent',
+      to: 'to-accent/80',
+      text: 'text-accent',
+    },
+    'creative-purple': {
+      from: 'from-creative-purple',
+      to: 'to-creative-purple/80',
+      text: 'text-creative-purple',
+    },
+  };
+
   const successStories = [
     {
       institution: "Stanford University",
@@ -96,12 +119,12 @@ const ImpactSection = () => {
               className={`bg-card rounded-xl p-6 text-center shadow-academic hover:shadow-academic-md transition-all duration-300 research-reveal stagger-${index + 1}`}
             >
               <div className="space-y-4">
-                <div className={`w-16 h-16 bg-gradient-to-br from-${metric?.color} to-${metric?.color}/80 rounded-full mx-auto flex items-center justify-center`}>
+                <div className={`w-16 h-16 bg-gradient-to-br ${metricColors[metric?.color]?.from} ${metricColors[metric?.color]?.to} rounded-full mx-auto flex items-center justify-center`}>
                   <Icon name={metric?.icon} size={24} className="text-white" />
                 </div>
                 
                 <div>
-                  <div className={`text-3xl font-inter font-bold text-${metric?.color} mb-1`}>
+                  <div className={`text-3xl font-inter font-bold ${metricColors[metric?.color]?.text} mb-1`}>
                     {metric?.value}
                   </div>
                   <div className="font-inter font-semibold text-primary mb-2">
