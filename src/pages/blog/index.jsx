@@ -44,13 +44,18 @@ const BlogPage = () => {
   };
 
   const [contentData, setContentData] = useState(() => {
+    if (typeof window === 'undefined') {
+      return initialData;
+    }
     const saved = localStorage.getItem('blogContent');
     return saved ? JSON.parse(saved) : initialData;
   });
 
   const handlePublish = (data) => {
     setContentData(data);
-    localStorage.setItem('blogContent', JSON.stringify(data));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('blogContent', JSON.stringify(data));
+    }
     setShowEditor(false);
   };
 
