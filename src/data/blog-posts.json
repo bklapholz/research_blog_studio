@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "slug": "breakthrough-in-quantum-machine-learning",
+    "title": "Breakthrough in Quantum Machine Learning",
+    "excerpt": "Researchers demonstrate quantum advantage in machine learning tasks, opening new possibilities for computational efficiency.",
+    "author": "Dr. Sarah Chen",
+    "date": "2024-12-10",
+    "readTime": "6 min",
+    "category": "Quantum Computing",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "slug": "large-language-models-progress-and-challenges",
+    "title": "Large Language Models: Progress and Challenges",
+    "excerpt": "A comprehensive analysis of recent advances in large language models and the challenges that lie ahead.",
+    "author": "Dr. Marcus Johnson",
+    "date": "2024-12-08",
+    "readTime": "12 min",
+    "category": "Natural Language Processing"
+  },
+  {
+    "id": 3,
+    "slug": "computer-vision-in-healthcare-real-world-applications",
+    "title": "Computer Vision in Healthcare: Real-World Applications",
+    "excerpt": "Exploring how computer vision technologies are transforming medical diagnosis and patient care.",
+    "author": "Dr. Emily Rodriguez",
+    "date": "2024-12-05",
+    "readTime": "9 min",
+    "category": "Computer Vision"
+  }
+]

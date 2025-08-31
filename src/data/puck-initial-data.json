@@ -1,0 +1,36 @@
+{
+  "content": [
+    {
+      "type": "ArticleHeader",
+      "props": {
+        "id": "header-1",
+        "title": "The Future of Artificial Intelligence Research",
+        "subtitle": "Exploring the next frontiers in machine learning and AI development",
+        "author": "Research Team",
+        "date": "December 15, 2024",
+        "readTime": "8"
+      }
+    },
+    {
+      "type": "TextContent",
+      "props": {
+        "id": "content-1",
+        "content": "Artificial intelligence continues to evolve at an unprecedented pace, with breakthrough discoveries reshaping our understanding of what's possible. In this comprehensive overview, we explore the latest developments and future directions in AI research."
+      }
+    },
+    {
+      "type": "ImageBlock",
+      "props": {
+        "id": "image-1",
+        "src": "/api/placeholder/800/400",
+        "alt": "AI Research Visualization",
+        "caption": "Visual representation of neural network architectures"
+      }
+    }
+  ],
+  "root": {
+    "props": {
+      "title": "Research Blog Post"
+    }
+  }
+}
