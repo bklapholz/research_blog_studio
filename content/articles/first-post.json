@@ -1,0 +1,35 @@
+{
+  "root": {},
+  "content": [
+    {
+      "type": "ArticleHeader",
+      "props": {
+        "title": "My First Research Post",
+        "subtitle": "A quick dive into the latest AI trend",
+        "author": "Jane Doe",
+        "date": "2024-08-30",
+        "readTime": "5"
+      }
+    },
+    {
+      "type": "TextContent",
+      "props": {
+        "content": "This is the opening paragraph of my blog post. Write any text you like here…"
+      }
+    },
+    {
+      "type": "ImageBlock",
+      "props": {
+        "src": "/images/ai-diagram.png",
+        "alt": "Diagram of AI flow",
+        "caption": "Figure 1: How it works"
+      }
+    },
+    {
+      "type": "TextContent",
+      "props": {
+        "content": "Here’s another paragraph after the image to continue the story…"
+      }
+    }
+  ]
+}
